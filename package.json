@@ -1,0 +1,17 @@
+{
+  "name": "uptime-notification-service",
+  "version": "1.0.0",
+  "description": "Notification service for uptime project",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --noEmit --watch & tsx watch ./src/server.ts",
+    "start": "node ./build/src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
