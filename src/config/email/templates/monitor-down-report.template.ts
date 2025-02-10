@@ -1,22 +1,20 @@
-interface FailedReport {
-  time: string;
-  errorMessage: string;
-  errorJson?: string;
-}
-
 const generateMonitorDownEmailTemplate = (
-  userName: string,
-  monitorName: string,
-  type: "website" | "api",
-  url: string,
-  monitorPageUrl: string,
-  failedReport: FailedReport
+    userName: string,
+    monitorName: string,
+    type: "WEBSITE" | "API",
+    url: string,
+    monitorPageUrl: string,
+    failedReport?: {
+        time: string;
+        errorMessage: string;
+        errorJson?: object;
+    }
 ): string => {
-  const subject = `[Action Required] Your ${type} ${monitorName} is Down`;
-  const monitorType = type.toUpperCase();
-  const statusColor = "#e74c3c";
+    const subject = `Your ${type} ${monitorName} is Down!`;
+    const monitorType = type.toUpperCase();
+    const statusColor = "#e74c3c";
 
-  return `
+    return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +37,7 @@ const generateMonitorDownEmailTemplate = (
     <div class="container" style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
         <!-- Header -->
         <div style="padding: 25px; background-color: ${statusColor}; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 24px;">StatusMonitor Pro</h1>
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Uptime pro</h1>
         </div>
 
         <!-- Content -->
@@ -69,11 +67,11 @@ const generateMonitorDownEmailTemplate = (
             <!-- Failure Report -->
             <h3 style="color: #2c3e50;">Failure Details</h3>
             <div style="background-color: #fff5f5; padding: 20px; border-left: 4px solid ${statusColor}; margin: 15px 0;">
-                <p style="margin: 0 0 10px 0;"><strong>Time:</strong> ${failedReport.time}</p>
-                <p style="margin: 0 0 10px 0;"><strong>Error:</strong> ${failedReport.errorMessage}</p>
-                ${failedReport.errorJson ? `
+                <p style="margin: 0 0 10px 0;"><strong>Time:</strong> ${failedReport?.time}</p>
+                <p style="margin: 0 0 10px 0;"><strong>Error:</strong> ${failedReport?.errorMessage}</p>
+                ${failedReport?.errorJson ? `
                 <div style="background-color: #ffffff; padding: 10px; margin: 10px 0; border-radius: 3px;">
-                    <pre style="font-family: monospace; font-size: 12px; margin: 0; color: #e74c3c;">${failedReport.errorJson}</pre>
+                    <pre style="font-family: monospace; font-size: 12px; margin: 0; color: #e74c3c;">${JSON.stringify(failedReport.errorJson, null, 2)}</pre>
                 </div>
                 ` : ''}
             </div>
@@ -88,8 +86,8 @@ const generateMonitorDownEmailTemplate = (
             <!-- Footer -->
             <div style="border-top: 1px solid #ecf0f1; padding-top: 20px; text-align: center;">
                 <p style="color: #7f8c8d; font-size: 12px;">
-                    © 2024 StatusMonitor Pro. All rights reserved.<br>
-                    Need help? <a href="mailto:support@statusmonitorpro.com" style="color: #3498db;">Contact our support team</a><br>
+                    © 2025 Uptime Pro. All rights reserved.<br>
+                    Need help? <a href="mailto:fenil3357@gmail.com" style="color: #3498db;">Contact our support team</a><br>
                     <a href="#" style="color: #3498db; text-decoration: none;">Privacy Policy</a> | 
                     <a href="#" style="color: #3498db; text-decoration: none;">Unsubscribe</a>
                 </p>
