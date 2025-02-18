@@ -8,7 +8,8 @@ const generateMonitorDownEmailTemplate = (
         time: string;
         errorMessage: string;
         errorJson?: object;
-    }
+    },
+    errorAnalysis?: string
 ): string => {
     const subject = `Your ${type} ${monitorName} is Down!`;
     const monitorType = type.toUpperCase();
@@ -43,22 +44,22 @@ const generateMonitorDownEmailTemplate = (
         <!-- Content -->
         <div class="content" style="padding: 30px;">
             <h2 style="color: #2c3e50; margin-top: 0;">${subject}</h2>
-            <p style="color: #7f8c8d;">Hi ${userName},</p>
-            <p style="color: #7f8c8d;">We detected an issue with your ${monitorType} monitor. Here are the details:</p>
+            <p style="color: black;">Hi ${userName},</p>
+            <p style="color: black;">We detected an issue with your ${monitorType} monitor. Here are the details:</p>
 
             <!-- Monitor Details -->
             <div style="background-color: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0;">
                 <table>
                     <tr>
-                        <td style="color: #7f8c8d; padding: 5px 10px 5px 0;">Monitor Name:</td>
+                        <td style="color: black; padding: 5px 10px 5px 0;">Monitor Name:</td>
                         <td style="font-weight: bold; color: #2c3e50;">${monitorName}</td>
                     </tr>
                     <tr>
-                        <td style="color: #7f8c8d; padding: 5px 10px 5px 0;">Type:</td>
+                        <td style="color: black; padding: 5px 10px 5px 0;">Type:</td>
                         <td style="color: ${statusColor};">${monitorType}</td>
                     </tr>
                     <tr>
-                        <td style="color: #7f8c8d; padding: 5px 10px 5px 0;">URL:</td>
+                        <td style="color: black; padding: 5px 10px 5px 0;">URL:</td>
                         <td><a href="${url}" style="color: #3498db; text-decoration: none;">${url}</a></td>
                     </tr>
                 </table>
@@ -76,6 +77,17 @@ const generateMonitorDownEmailTemplate = (
                 ` : ''}
             </div>
 
+                ${errorAnalysis ? `
+            <!-- Analysis Section -->
+            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                <h3 style="color: #2c3e50; margin-top: 0;">AI-powered Root Cause Analysis</h3>
+                <div style="color: black; white-space: pre-wrap; line-height: 1.5;">
+                    ${errorAnalysis}
+                </div>
+            </div>
+            ` : ''}
+
+
             <!-- CTA Button -->
             <div style="text-align: center; margin: 30px 0;">
                 <a href="${monitorPageUrl}" style="background-color: ${statusColor}; color: #ffffff; padding: 12px 25px; text-decoration: none; border-radius: 4px; display: inline-block; font-weight: bold;">
@@ -85,7 +97,7 @@ const generateMonitorDownEmailTemplate = (
 
             <!-- Footer -->
             <div style="border-top: 1px solid #ecf0f1; padding-top: 20px; text-align: center;">
-                <p style="color: #7f8c8d; font-size: 12px;">
+                <p style="color: black; font-size: 12px;">
                     © 2025 Uptime Pro. All rights reserved.<br>
                     Need help? <a href="mailto:fenil3357@gmail.com" style="color: #3498db;">Contact our support team</a><br>
                     <a href="#" style="color: #3498db; text-decoration: none;">Privacy Policy</a> | 

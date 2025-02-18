@@ -36,13 +36,14 @@ export const notificationListener = async () => {
                 time: string,
                 errorMessage: string,
                 errorJson: object
-              }
+              },
+              errorAnalysis?: string
             }
           } = JSON.parse(msgContent);
 
           await sendEmailService({
             to: data?.content?.userEmail,
-            html: generateMonitorDownEmailTemplate(data?.content?.userName, data?.content?.monitorName, data?.content?.type, data?.content?.endpoint, data?.content?.monitorPageUrl, data?.content?.errorReport),
+            html: generateMonitorDownEmailTemplate(data?.content?.userName, data?.content?.monitorName, data?.content?.type, data?.content?.endpoint, data?.content?.monitorPageUrl, data?.content?.errorReport, data?.content?.errorAnalysis),
             from: 'UPTIME no-reply@uptime-pro.onrender.com',
             subject: `Your ${data?.content?.type} ${data?.content?.monitorName} is Down!`
           })
